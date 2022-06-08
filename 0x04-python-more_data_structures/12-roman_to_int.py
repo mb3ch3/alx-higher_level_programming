@@ -1,28 +1,16 @@
 #!/usr/bin/python3
 def roman_to_int(roman_string):
-    if (not isinstance(roman_string, str) or
-            roman_string is None):
-        return (0)
-
-    roman_dict = {
-            "I": 1,
-            "V": 5,
-            "X": 10,
-            "L": 50,
-            "C": 100,
-            "D": 500,
-            "M": 1000
-    }
-    n = 0
-
-    for i in range(len(roman_string)):
-        if roman_dict.get(roman_string[i], 0) == 0:
-            return (0)
-
-        if (i != (len(roman_string) - 1) and
-                roman_dict[roman_string[i]] < roman_dict[roman_string[i + 1]]):
-                n += roman_dict[roman_string[i]] * -1
-
-        else:
-            n += roman_dict[roman_string[i]]
-    return (n)
+    if (type(roman_string) != str) or roman_string is None:
+        return 0
+    count = 0
+    tmp = 0
+    dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    for iter1 in roman_string:
+        if tmp >= int(dict.get(iter1)) and tmp != 0:
+            count += int(dict.get(iter1))
+        elif tmp < int(dict.get(iter1)) and tmp != 0:
+            count = count + ((int(dict.get(iter1)) - tmp) - tmp)
+        elif tmp == 0:
+            count += int(dict.get(iter1))
+        tmp = int(dict.get(iter1))
+    return (count)
